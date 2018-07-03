@@ -1,0 +1,110 @@
+<!--Encabezado clientes.html-->
+<div class="row">
+	<div class="cabecera">
+		<h1>Administración de Clientes</h1>
+		<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#formulario"><span class="glyphicon glyphicon-plus"></span> Agregar Personas</button>
+	</div>
+
+	<!--Formulario, llama a la funcion agregar() para agregar elementos al localstorage-->
+	<div class="col-sm-12 collapse" id="formulario">
+		<form class="form-horizontal" ng-submit="agregar(nombre,email,telefono)">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nombre">Nombre:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre" ng-model="nombre" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="email">Email:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="email" placeholder="Ingrese email" ng-model="email" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="telefono">Telefono:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="telefono" placeholder="Ingrese telefono" ng-model="telefono" required>
+				</div>
+			</div>
+			<!--botones-->
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Agregar</button>
+					<a class="btn btn-default" data-toggle="collapse" data-target="#formulario"><span class="glyphicon glyphicon-remove"></span> cerrar</a>
+				</div>
+			</div>
+		</form> 
+
+	</div>
+</div>
+
+<!--Tabla, carga los datos de los clientes en el localstorage-->
+<div class="row">
+	<div class="col-sm-12 tabla table-responsive">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Email</th>
+					<th>Telefono</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cliente in clientes" id="{{$index}}">
+					<td>{{cliente.nombre_completo}}</td>
+					<td>{{cliente.email}}</td>
+					<td>{{cliente.telefono}}</td>
+					<td>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalActualizar"  ng-click="cargarCliente($index)"><span class="glyphicon glyphicon-edit"></span> Actualizar</button>
+						<button type="button" class="btn btn-default" ng-click="eliminar($index)"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Modal para actualizar datos -->
+<div id="modalActualizar" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Contenido modal-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Actualizar: {{cliente.nombre_completo}}</h3>
+			</div>
+			<!--Formulario modal, al hacer click en "actualizar" llama a la funcion actualizar() para actualizar los datos en el localstorage, el boton "cerrar" cierra el modal sin hacer cambios-->
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="nombreMod">Nombre:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="nombreMod" ng-model="nombreMod">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="emailMod">Email:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="emailMod" ng-model="emailMod">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="telefonoMod">Telefono:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="telefonoMod" ng-model="telefonoMod">
+						</div>
+					</div>
+					<!--footer del modal y botones-->
+					<div class="modal-footer">
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="button" class="btn btn-default" ng-click="actualizar(clienteIndex,nombreMod,emailMod,telefonoMod)" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></span> Actualizar</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
+							</div>
+						</div>
+					</div>
+				</form> 
+			</div>
+		</div>
+	</div>
+</div>

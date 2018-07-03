@@ -1,0 +1,65 @@
+<!--Encabezado de deudas-->
+<div class="row">
+	<div class="cabecera">
+		<h1>Deudas</h1>
+	</div>
+</div>
+
+<!--Switch de deudas, en caso de no existir deudas se muestra una alerta. En caso de existir deudas se muestra un "Accordion" con el nombre de los clientes y sus cuotas respectivas, ademas de dar la opcion de marcar la cuota como pagada.-->
+<div ng-switch="deudasExist">
+	
+	<!--En caso de que se retorne true-->
+	<div ng-switch-when="true">
+		<div class="row">
+			<!--Accordion-->
+			<div class="panel-group" id="accordion">
+				<!--Se itera por cada deuda existente-->
+				<div class="panel panel-default" ng-repeat="deuda in deudas">
+					<!--Head del "Accordion", muestra el nombre del cliente-->
+					<div class="panel-heading ">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{$index}}">Deuda {{$index + 1}}: {{deuda.cliente.nombre_completo}}</a>
+						</h4>
+					</div>
+					<!--Cuerpo del "Accordion", muestra una lista con la cantidad de cuotas, ademas de mostrar la opcion marcar como pagada la cuota-->
+					<div id="collapse{{$index}}" class="panel-collapse collapse">
+						<div class="panel-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Cuota</th>
+										<th>Valor</th>
+										<th>Estado</th>
+										<th>Opciones</th>
+									</tr>
+								</thead>
+								<tbody ng-init="indiceDeuda = $index">
+									<tr ng-repeat="cuota in deuda.cuotas">
+										<td>Cuota {{$index + 1}}</td>
+										<td>{{cuota.valor}}</td>
+										<td ng-if="cuota.pagado == false">No pagado</td>
+										<td ng-if="cuota.pagado">Pagado</td>
+										<td ng-if="cuota.pagado == false">
+											<button type="button" class="btn btn-default" ng-click="pagar(indiceDeuda, $index)">Pagar</button>
+										</td>
+										<td ng-if="cuota.pagado">
+											<button type="button" class="btn btn-default" disabled>Pagar</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--En caso de que se retorne false-->
+	<div ng-switch-when="false">
+		<div class="alert alert-warning">
+			<strong>No existen deudas registradas en el sistema.</strong>
+		</div>
+	</div>
+</div>
+

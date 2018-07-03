@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taller2</title>
+  <!--Bootstrap-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="lib/css/bootstrap.css"> 
+  <script src="lib/js/bootstrap.min.js"></script>
+  <!--angular-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-route.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+  <script src="app/directives.js"></script>
+  <script src="app/controllers/AplicacionController.js"></script>
+  <script src="app/app.js"></script>
+  <!--custom CSS-->
+  <link rel="stylesheet" href="lib/css/estilos.css">   
+</head>
+
+<body  ng-app="app" >
+
+  <div ng-controller="capitalController">
+    <div ng-controller="rutaController">
+      <!--Navbar para dispositivos moviles-->
+      <nav class="navbar navbar-inverse visible-xs " >
+        <div class="container-fluid ">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <h1> <a href="#!/">Taller 2</a></h1>
+            <div class="capital"><h4><span class="glyphicon glyphicon-piggy-bank"></span> Capital actual: ${{capital.capital_actual}}</h4></div>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li ng-class="{active:isActive('/clientes')}"><a href="#!clientes"><span class="glyphicon glyphicon-user"></span> Clientes</a></li>
+              <li ng-class="{active:isActive('/prestamos')}"><a href="#!prestamos"><span class="glyphicon glyphicon-usd"></span> Prestamos</a></li>
+              <li ng-class="{active:isActive('/deudas')}"><a href="#!deudas"><span class="glyphicon glyphicon-piggy-bank"></span> Deudas</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--container principal-->
+      <div class="container-fluid"  >
+        <div class="row content">
+
+          <!--Navbar lateral-->
+          <div class="col-sm-3 sidenav hidden-xs" >
+            <h1> <a href="#!/">Taller 2</a></h1>
+            <div class="capital"><h4><span class="glyphicon glyphicon-piggy-bank"></span> Capital actual: ${{capital.capital_actual}}</h4></div>
+            <ul class="nav nav-pills nav-stacked" >
+              <li ng-class="{active:isActive('/clientes')}"><a href="#!clientes"><span class="glyphicon glyphicon-user"></span> Clientes</a></li>
+              <li ng-class="{active:isActive('/prestamos')}"><a href="#!prestamos"><span class="glyphicon glyphicon-usd"></span> Prestamos</a></li>
+              <li ng-class="{active:isActive('/deudas')}"><a href="#!deudas"><span class="glyphicon glyphicon-piggy-bank"></span> Deudas</a></li>
+            </ul>
+            
+          </div>
+
+          <!--Contenido de la pagina-->
+          <div class="contenido">
+
+            <div class="col-sm-9">
+              <div>
+                <!--Vistas dinamicas mediante AngularJS-->
+                <div ng-view></div> 
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

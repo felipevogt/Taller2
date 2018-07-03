@@ -1,0 +1,45 @@
+<!--Cabecera de la vista prestamos-->
+<div class="row">
+	<div class="cabecera">
+		<h1>Ingreso de prestamos</h1>
+	</div>
+</div>
+
+<!--Cuerpo de la vista, contiene un formulario para poder ingresar prestamos-->
+<div class="row">
+	<form ng-submit="agregarPrestamo(cliente, monto, cuota)">
+		<div class="form-group col-sm-12">
+			<label>Seleccione cliente:</label>
+			<select class="form-control" ng-model="cliente" required> 
+				<option ng-repeat="cliente in clientes" value="{{$index}}"|>{{cliente.nombre_completo}}</option>
+			</select>
+		</div>
+		<div class="form-group col-sm-12">
+			<label>Ingrese monto prestamo:</label>
+			<input type="number" class="form-control "  ng-model="monto" placeholder="Ingrese monto prestamo" required>
+		</div>
+		<div class="form-group col-sm-12" required>
+			<label>Seleccione cuota:</label>
+			<select class="form-control" ng-model="cuota">
+				<option ng-repeat="cuota in cuotas" value="{{cuota.id}}">Numero de cuotas: {{cuota.n_cuotas}}, Interes: {{cuota.interes}}%</option>
+			</select>
+		</div>
+		<div class="col-sm-12">
+			<button type="submit" class="btn btn-default col-sm-3 col-sm-offset-9"><span class="glyphicon glyphicon-usd"></span>Agregar prestamo</button>
+		</div>
+	</form> 
+</div>
+
+<!--Switch que muestra un mensaje de alerta en caso de que la transaccion se haya realizado con exito o no-->
+<div ng-switch="success">
+	<div ng-switch-when="true">
+		<div class="alert alert-success">
+			<strong>{{alerta}}</strong>
+		</div>
+	</div>
+	<div ng-switch-when="false">
+		<div class="alert alert-danger">
+			<strong>{{alerta}}</strong>
+		</div>
+	</div>
+</div>
